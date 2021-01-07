@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logoImage from '../../assets/logo.png';
 import './styles.css';
 import {menuItems} from './menuItems';
-// import { Button } from '../Searchbar';
+import Searchbar from '../Searchbar'
 
 class Navbar extends Component {
   state = { clicked: false }
@@ -28,8 +28,7 @@ class Navbar extends Component {
             )
           )}
         </ul>
-        <input placeholder="search for your favorite movie"></input>
-        <button>Search</button>
+        <Searchbar id='search' />
       </nav>
     )
   };

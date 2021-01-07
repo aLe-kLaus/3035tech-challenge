@@ -7,7 +7,7 @@ export const menuItems = [
   },
   {
     id: 2,
-    title: 'Repository',
+    title: 'ContactUs',
     url: '/repository',
     cName: 'nav-links'
   }
