@@ -25,6 +25,7 @@ export const Trendings = styled.div `
     transition: transform .3s;
 
   img {
+    border: 5px black solid;
     height: 185px;
     width: 185px;
     border-radius: 50%;

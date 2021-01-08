@@ -1,25 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Title, Trendings } from './styles';
 import api from '../../services/api'
+import {Link} from 'react-router-dom';
+import { IntrinsicElementsKeys } from 'styled-components';
+
+interface Movies {
+  results: []
+  title: string,
+  release_date: Date,
+  vote_average: number,
+  id: IntrinsicElementsKeys,
+  poster_path: string;
+}
 
 const Dashboard: React.FC = () => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<Movies[]>([]);
 
+  useEffect (() => {
+    api.get<Movies>('').then(response => {
+      setMovies(response.data.results);
+    });
+  }, []);
+
+  movies.sort((a, b) => a.vote_average > b.vote_average ? -1 : 1);
 
   return (
     <>
-      <Title>Movies On Trendings</Title>
+      <Title>Weekly Trending</Title>
       <Trendings>
-        <div>
-          <a href="teste">
-            <img src="https://avatars2.githubusercontent.com/u/69825078?s=460&u=9f276d8db58840361e7a6234201525888cd045f9&v=4" alt="ale" />
-          <div>
-            <strong>Wonder Woman</strong>
-            <p>Vote Average: 7.5</p>
-            <p>Release date: 07/01/2021</p>
+        {movies.map((movie => (
+          <div key={movie.id}>
+            <Link to={`/displaymoreinfo/${movie.id}`}>
+              <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="iconimage" />
+            <div>
+              <strong>{movie.title}</strong>
+              <p>Vote Average: {movie.vote_average}</p>
+              <p>Release date: {movie.release_date}</p>
+            </div>
+            </Link>
           </div>
-          </a>
-        </div>
+        )))}
       </Trendings>
     </>
   )
