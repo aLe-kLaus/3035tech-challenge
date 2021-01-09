@@ -15,6 +15,7 @@ class Navbar extends Component {
     return(
       <nav className="nav-items">
         <img alt='' src={logoImage} className="nav-logo"/>
+        <Searchbar />
         <div className="menu-icon" onClick={this.userClick}>
           <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
         </div>
@@ -28,7 +29,6 @@ class Navbar extends Component {
             )
           )}
         </ul>
-        <Searchbar id='search' />
       </nav>
     )
   };

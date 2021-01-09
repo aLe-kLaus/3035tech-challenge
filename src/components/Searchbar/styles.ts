@@ -27,4 +27,13 @@ export const Form = styled.form `
     button:hover {
       background: ${tint(0.2, "#3a3a3a")}
     }
+  @media screen and (max-width: 960px) {
+    input {
+      width: 160px;
+    }
+
+    button {
+      width: 60px;
+    }
+  }
 `

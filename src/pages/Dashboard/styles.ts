@@ -1,10 +1,22 @@
 import styled from 'styled-components';
 
+interface ImageProps {
+  border_color: string;
+}
+
 export const Title = styled.h1`
   text-align: center;
   font-size: 48px;
   color: #3a3a3a;
 `;
+
+export const Image = styled.img<ImageProps>`
+    ${props => (`border: 5px ${props.border_color} solid`)};
+    height: 185px;
+    width: 185px;
+    border-radius: 50%;
+    align-self: center;
+`
 
 export const Trendings = styled.div `
   margin-top: 10px;
@@ -16,6 +28,8 @@ export const Trendings = styled.div `
   text-align: center;
 
   a {
+    height: 100%;
+    min-height: 400px;
     background: #fff;
     display: grid;
     border-radius: 5px;
@@ -24,13 +38,6 @@ export const Trendings = styled.div `
     text-decoration: none;
     transition: transform .3s;
 
-  img {
-    border: 5px black solid;
-    height: 185px;
-    width: 185px;
-    border-radius: 50%;
-    align-self: center;
-  }
   strong {
       font-size: 25px;
       color: #3d3d4d;
@@ -40,7 +47,7 @@ export const Trendings = styled.div `
       color: #a8a8b3;
     }
     &:hover {
-      transform: translateY(10px);
+      transform: translateY(8px);
     }
 }
 `
