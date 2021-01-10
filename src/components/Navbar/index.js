@@ -7,7 +7,7 @@ import Searchbar from '../Searchbar'
 class Navbar extends Component {
   state = { clicked: false }
 
-  userClick = () => {
+  handleClick = () => {
     this.setState({ clicked: !this.state.clicked})
   };
 
@@ -15,8 +15,7 @@ class Navbar extends Component {
     return(
       <nav className="nav-items">
         <img alt='' src={logoImage} className="nav-logo"/>
-        <Searchbar />
-        <div className="menu-icon" onClick={this.userClick}>
+        <div className="menu-icon" onClick={this.handleClick}>
           <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
         </div>
         <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>

@@ -6,48 +6,65 @@ interface ImageProps {
 
 export const Title = styled.h1`
   text-align: center;
-  font-size: 48px;
-  color: #3a3a3a;
+  font-size: 3rem;
+  color: #fff;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 
 export const Image = styled.img<ImageProps>`
     ${props => (`border: 5px ${props.border_color} solid`)};
-    height: 185px;
-    width: 185px;
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
-    align-self: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+   @media (max-width: 450px) {
+      ${props => (`border: 5px ${props.border_color} solid`)};
+      height: 180px;
+      width: 180px;
+      border-radius: 50%;
+  }
 `
 
 export const Trendings = styled.div `
   margin-top: 10px;
-  max-width: 960px;
+  width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-row-gap: 10px;
   grid-column-gap: 10px;
   text-align: center;
+  align-content: center;
 
   a {
     height: 100%;
-    min-height: 400px;
-    background: #fff;
+    min-height: 25rem;
+    background: #9e61fa;
     display: grid;
-    border-radius: 5px;
+    border-radius: .5rem;
     width: 100%;
-    padding: 15px;
+    padding: 1rem;
     text-decoration: none;
     transition: transform .3s;
 
   strong {
-      font-size: 25px;
-      color: #3d3d4d;
+      font-size: 1.5rem;
+      color: #ffffff;
     }
   p {
-      font-size: 17px;
+      font-size: 1rem;
       color: #a8a8b3;
     }
     &:hover {
-      transform: translateY(8px);
+      transform: translateX(.5rem);
     }
-}
+    @media (max-width: 980px) {
+
+    }
+  }
 `

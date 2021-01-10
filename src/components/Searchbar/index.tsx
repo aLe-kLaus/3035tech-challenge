@@ -1,34 +1,85 @@
-import React, { useState } from 'react';
-import { Form } from './styles';
+import React, { useState, FormEvent } from 'react';
+import {Form,
+        Title,
+        Display,
+        Image,
+        Error } from './styles';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 
+interface responseProps {
+  title: string;
+  id: number;
+  vote_average: number;
+  poster_path: string;
+  colorid: string;
+  release_date: Date;
+}
+
 const Searchbar: React.FC = () => {
-  const [value, setValue] = useState('');
-
-  const getQuery = () => {
-    let qp = new URLSearchParams(value)
-  }
-  console.log(value)
-
-  function userSearch() : void {
-    console.log(value);
-
-  }
-
+  const [searchValue, setSearchValue] = useState('');
+  const [inputError, setInputError] = useState('');
+  const [searchResponse, setSearchResponse] = useState<responseProps[]>([]);
   const apisearch = axios.create({
-   // baseURL: `https://api.themoviedb.org/3/search/movie?api_key=680696aacd6dd222b951702b83ddb9e5&language=en-US&query=${}&page=1&include_adult=true`
+    baseURL: `https://api.themoviedb.org/3/search/movie?api_key=680696aacd6dd222b951702b83ddb9e5&language=en-US&query=${searchValue}&page=1&include_adult=true`
   });
+
+  async function handleSearch(event: FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault();
+
+    if (!searchValue) {
+      setInputError('type the movie name!');
+      return;
+    }
+    try {
+      const response = await apisearch.get('');
+      setSearchResponse(response.data)
+      setSearchValue('');
+      setInputError('');
+
+    } catch (err) {
+      setInputError('invalid movie, type again');
+    };
+
+  };
+
   return (
     <>
-      <Form onSubmit={userSearch}>
+    <Title>Search for a movie</Title>
+
+      <Form onSubmit={handleSearch}>
           <input
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          type="text" placeholder="serch for a movie"/>
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          type="text" placeholder="type here"/>
           <button type="submit">Search</button>
       </Form>
-    </>
+
+      {inputError && <Error>{inputError}</Error>}
+
+      {searchResponse.map((res => {
+          if (res.vote_average >= 7) {
+            res.colorid = "#00ff95"
+          }
+          else if (res.vote_average < 6) {
+            res.colorid = "#ff0000"
+          }
+          else {
+            res.colorid = "#fbff00"
+          } return (
+            <Display>
+              <Link key={res.id} to={`/displaymoreinfo/${res.id}`}>
+              <Image src={`https://image.tmdb.org/t/p/w500${res.poster_path}`} alt="iconimage" border_color={res.colorid} />
+                <div>
+                  <strong>{res.title}</strong>
+                  <p>{res.release_date}</p>
+                </div>
+              </Link>
+            </Display>
+          )
+        }
+      ))}
+      </>
   )
 }
 export default Searchbar;

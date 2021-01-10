@@ -7,8 +7,8 @@ export const menuItems = [
   },
   {
     id: 2,
-    title: 'ContactUs',
-    url: '/repository',
+    title: 'Search Movie',
+    url: '/searchmovie',
     cName: 'nav-links'
   }
 ]
