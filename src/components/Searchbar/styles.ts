@@ -6,9 +6,10 @@ interface ImageProps {
 }
 
 export const Title = styled.h1 `
-  align-content: center;
+  margin-top: 5px;
+  text-align: center;
   font-size: 48px;
-  color: #3a3a3a;
+  color: #fff;
 `
 
 export const Form = styled.form `
@@ -23,22 +24,28 @@ export const Form = styled.form `
     padding: 0 24px;
     border: 0;
     height: 50px;
+    border: 1px solid black;
 
     &::placeholder {
       color: #a8a8b3;
     }
   }
   button {
-    width: 210px;
+    border: 1px solid black;
+    width: 60px;
     border-radius: 0 5px 5px 0;
     height: 50px;
-    font-weight: bold;
     color: #ffffff;
     background: #3a3a3a;
     transition: .3s ease-out;
 
     &:hover {
       background: ${tint(0.2, "#3a3a3a")}
+    }
+
+    img {
+      width: 25px;
+      height: 25px;
     }
   }
   @media screen and (max-width: 960px) {
@@ -81,7 +88,7 @@ export const Display = styled.div`
   }
 `
 export const Image = styled.img<ImageProps>`
-    ${props => (`border: 5px ${props.border_color} solid`)};
+    ${props => (`border: 3px ${props.border_color} solid`)};
     height: 100px;
     width: 100px;
     border-radius: 50%;
@@ -89,6 +96,8 @@ export const Image = styled.img<ImageProps>`
 `
 
 export const Error = styled.span`
+  font-size: 18px;
+  margin-top: 15px;
   display: block;
-  color: color #653030;
+  color: red;
 `
