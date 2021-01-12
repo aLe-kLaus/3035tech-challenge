@@ -3,6 +3,7 @@ import {useRouteMatch} from 'react-router-dom';
 import {Display} from './styles';
 import axios from 'axios';
 import imagePlaceHolder from '../../assets/imageplaceholder.png';
+import { Error } from '../../components/Searchbar/styles';
 
 interface ShowMoreInfoParams {
   id: string
@@ -45,10 +46,7 @@ const Repository: React.FC = () => {
       movie.image = imagePlaceHolder;
     } else {
       movie.image = `https://image.tmdb.org/t/p/w500${movie?.poster_path}`;
-    };
-  };
-
-  return (
+    } return (
     <Display>
       <img src={movie?.image} alt={movie?.title} />
         <div>
@@ -62,6 +60,11 @@ const Repository: React.FC = () => {
         </div>
     </Display>
   );
+  } else {
+    return (
+      <Error>Movie Not Found</Error>
+    )
+  };
 }
 
 export default Repository;
