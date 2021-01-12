@@ -62,7 +62,7 @@ export const Display = styled.div`
   margin-top: 50px;
 
   a {
-    background: #fff;
+    background: #9e61fa;
     border-radius: 5px;
     width: 100%;
     padding: 24px;
@@ -78,7 +78,7 @@ export const Display = styled.div`
 
     strong {
       font-size: 20px;
-      color: #3d3d4d;
+      color: #fff;
     }
 
     p {

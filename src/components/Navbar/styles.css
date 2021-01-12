@@ -55,6 +55,7 @@
   .nav-items {
     position: relative;
   }
+
   .nav-menu {
     display: flex;
     flex-direction: column;
@@ -74,6 +75,7 @@
     transition: all .5s ease;
     z-index: 1;
   }
+
   .nav-links {
     text-align: center;
     padding: 2rem;

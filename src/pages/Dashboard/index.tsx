@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { Title, Trendings, Image } from './styles';
 import api from '../../services/api'
 import {Link} from 'react-router-dom';
+import imagePlaceHolder from '../../assets/imageplaceholder.png';
 
 interface Movies {
   results: []
@@ -11,6 +12,7 @@ interface Movies {
   id: string,
   poster_path: string;
   colorid: string;
+  image: string;
 }
 
 const Dashboard: React.FC = () => {
@@ -37,10 +39,14 @@ const Dashboard: React.FC = () => {
           }
           else {
             movie.colorid = "#fbff00"
+          } if (movie.poster_path === null) {
+            movie.image = imagePlaceHolder;
+          } else {
+            movie.image = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
           } return (
             <div key={movie.id}>
               <Link to={`/displaymoreinfo/${movie.id}`}>
-                <Image src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="iconimage" border_color={movie.colorid} />
+                <Image src={movie.image} alt="iconimage" border_color={movie.colorid} />
               <div>
                 <strong>{movie.title}</strong>
                 <p>Vote Average: {movie.vote_average}</p>

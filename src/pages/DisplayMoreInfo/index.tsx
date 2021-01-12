@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useRouteMatch} from 'react-router-dom';
 import {Display} from './styles';
 import axios from 'axios';
+import imagePlaceHolder from '../../assets/imageplaceholder.png';
 
 interface ShowMoreInfoParams {
   id: string
@@ -11,11 +12,12 @@ interface ApiValue {
   title: string,
   release_date: Date,
   vote_average: number,
-  id: string,
+  id: number,
   poster_path: string,
   overview: string,
   runtime: number,
   colorid: string,
+  image: string;
   genres: [
     {
     id: number,
@@ -38,9 +40,17 @@ const Repository: React.FC = () => {
     });
   }, []);
 
+  if (movie != null) {
+    if (movie.poster_path === null) {
+      movie.image = imagePlaceHolder;
+    } else {
+      movie.image = `https://image.tmdb.org/t/p/w500${movie?.poster_path}`;
+    };
+  };
+
   return (
     <Display>
-      <img src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`} alt={movie?.title} />
+      <img src={movie?.image} alt={movie?.title} />
         <div>
           <strong>{movie?.title}</strong>
           <p id="runtime">Runtime: {movie?.runtime} Minutes.</p>

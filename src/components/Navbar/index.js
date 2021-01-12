@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logoImage from '../../assets/logo.png';
 import './styles.css';
 import {menuItems} from './menuItems';
-import Searchbar from '../Searchbar'
 
 class Navbar extends Component {
   state = { clicked: false }
@@ -15,9 +14,11 @@ class Navbar extends Component {
     return(
       <nav className="nav-items">
         <img alt='' src={logoImage} className="nav-logo"/>
+
         <div className="menu-icon" onClick={this.handleClick}>
-          <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
+          <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'} />
         </div>
+
         <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
           {menuItems.map((item, index) => (
               <li key={item.id}>

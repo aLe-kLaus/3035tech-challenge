@@ -7,14 +7,17 @@ import {Form,
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 import searchIcon from '../../assets/searchicon.png';
+import imageplaceholder from '../../assets/imageplaceholder.png';
 
 interface responseProps {
+  results: [],
   title: string;
   id: number;
   vote_average: number;
   poster_path: string;
   colorid: string;
   release_date: Date;
+  image: string;
 }
 
 const Searchbar: React.FC = () => {
@@ -33,14 +36,13 @@ const Searchbar: React.FC = () => {
   }
   try {
     const response = await apisearch.get('');
-    setSearchResponse(response.data)
+    setSearchResponse(response.data.results)
     setSearchValue('');
     setInputError('');
   } catch (err) {
-    setInputError('invalid movie, try again');
-    };
-    console.log(searchResponse);
-  };
+    setInputError('we can not find your movie');
+    }
+  }
 
   return (
     <>
@@ -54,27 +56,30 @@ const Searchbar: React.FC = () => {
           <button type="submit"><img src={searchIcon} /></button>
       </Form>
 
-      {inputError && <Error>{inputError}</Error>}
-      {searchResponse.map((res => {
+     {inputError && <Error>{inputError}</Error>}
+     {searchResponse.map((res => {
           if (res.vote_average >= 7) {
-            res.colorid = "#00ff95"
-          }
-          else if (res.vote_average < 6) {
+          res.colorid = "#00ff95"
+          } else if (res.vote_average < 6) {
             res.colorid = "#ff0000"
-          }
-          else {
+          } else {
             res.colorid = "#fbff00"
+          }
+          if (res.poster_path === null) {
+            res.image = imageplaceholder;
+          } else {
+            res.image = `https://image.tmdb.org/t/p/w500${res.poster_path}`;
           } return (
             <Display>
               <Link key={res.id} to={`/displaymoreinfo/${res.id}`}>
-              <Image src={`https://image.tmdb.org/t/p/w500${res.poster_path}`} alt="iconimage" border_color={res.colorid} />
+              <Image src={res.image} alt="iconimage" border_color={res.colorid} />
                 <div>
                   <strong>{res.title}</strong>
                   <p>{res.release_date}</p>
                 </div>
               </Link>
             </Display>
-          )
+         )
         }
       ))}
       </>
